@@ -39,16 +39,6 @@ export function HomeComponent() {
             </div>
           </div>
         </section>
-        {/* <section className="container mx-auto py-24 px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-4 max-w-md">
-            <h1 className="text-4xl font-bold">Discover your perfect rental with Jili Yui</h1>
-            <p className="text-lg text-[#808080]">
-              Our AI-powered platform connects you with the ideal rental property, tailored to your needs.
-            </p>
-            <Button>Explore Rentals</Button>
-          </div>
-          <img src="/placeholder.svg" width={600} height={400} alt="Hero Image" className="rounded-xl shadow-lg" />
-        </section> */}
         <section className="container mx-auto py-24 px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <MergeIcon className="h-12 w-12" />
@@ -233,55 +223,9 @@ export function HomeComponent() {
 
 
             </div>
-          {/* <InfoComponent/> */}
-          {/* <img src="/placeholder.svg" width={600} height={400} alt="Feature Image" className="rounded-xl shadow-lg" />
-          <div className="space-y-4 max-w-md">
-            <h2 className="text-4xl font-bold">Поиск квартиры - просто и быстро.</h2>
-            <p className="text-lg text-[#ffffff]">
-              С помощью Home Spark вы можете легко и быстро найти жилье, которое подходит именно вам. ИИ способен принимать <span className="text-[#ff851a]">любые запросы</span>, вот пример самых популярных:
-            </p>
-            <ul className="list-disc list-inside text-base text-[#ffffff] space-y-2">
-              <li>Квартиры для студентов</li>
-              <li>Выгодная квартира в Алмалинском районе.</li>
-              <li>Семейные квартиры с детскими площадками.</li>
-              <li>Квартиры с современным ремонтом в центре города.</li>
-            </ul>
-            <p className=" text-lg text-[#ffffff]">
-              Запросы могут быть, как и простые, так и сложные. Наш ИИ справится с любым запросом.
-            </p>
-            <p className=" text-lg text-[#ffffff]">
-              После запроса, вы получите список квартир, которые соответствуют вашим требованиям. Вы сможете просмотреть фотографии, описание и цены на квартиры. Определившись с выбором, 
-              вы сможете использовать нашу функцию <span className="text-[#ff851a]">автоматического общения с арендодателем</span>. Он сможет ответить на ваши вопросы и договориться о встрече и в последствии отправить вам дату, когда вам нужно будет лично просмотреть квартиру. Номер владельца также будет доступен вам, если вы лично хотите договориться.            </p>
-            <p className="text-lg text-[#ffffff]">
-              Не теряйте времени на бесконечные поиски! Доверьтесь <span className="text-[#ff851a]">homespark</span> и найдите свою идеальную квартиру уже сегодня. С нами поиск жилья становится простым и удобным.
-            </p>
-            <Link href="/">
-              <Button className="my-4">Попробовать</Button>
-            </Link>
-
-
-          </div> */}
+         
         </section>
       </main>
-      {/* <footer className="bg-[#4A00E0] py-8 px-4 md:px-6">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center gap-2">
-            <JapaneseYenIcon className="h-6 w-6" />
-            <span className="text-lg font-bold">Jili Yui</span>
-          </div>
-          <nav className="flex items-center gap-4 mt-4 md:mt-0">
-            <Link href="#" className="text-sm font-medium hover:underline" prefetch={false}>
-              Privacy
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline" prefetch={false}>
-              Terms
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline" prefetch={false}>
-              Contact
-            </Link>
-          </nav>
-        </div>
-      </footer> */}
     </div>
   )
 }
