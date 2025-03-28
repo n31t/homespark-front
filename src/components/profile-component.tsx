@@ -11,6 +11,7 @@ interface User {
   surname: string | null;
   age: number | null;
   smallDescription: string | null;
+  tokenBalance: number | null;
 }
 
 const Profile: React.FC = () => {
@@ -18,6 +19,8 @@ const Profile: React.FC = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [tokenAmount, setTokenAmount] = useState<number>(0);
 
     const [dots, setDots] = useState('');
 
@@ -51,6 +54,22 @@ const Profile: React.FC = () => {
         }
     };
 
+    const handleBuyTokens = async () => {
+        try {
+            const token = localStorage.getItem('accessToken');
+            if (!token) throw new Error('No token found');
+            const response = await axiosInstance.post('userId-by-token', { token });
+            const id = response.data.id;
+
+            const buyResponse = await axiosInstance.post('/payment/pay', { userId: id, amount: tokenAmount });
+            const paymentUrl = buyResponse.data.paymentUrl;
+
+            window.location.href = paymentUrl; // Перенаправление на Robokassa
+        } catch (error) {
+            console.error('Ошибка при покупке токенов:', error);
+        }
+    };    
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (user) {
             setUser({ ...user, [e.target.name]: e.target.value });
@@ -78,17 +97,6 @@ const Profile: React.FC = () => {
 
     if (isLoading) {
         return (
-            // <div style={{
-            //   display: 'flex',
-            //   alignItems: 'center',
-            //   justifyContent: 'center',
-            //   height: '100vh',
-            //   fontSize: '24px',
-            //   fontWeight: 600,
-            //   color: '#FF7024',
-            // }}>
-            //   Loading...
-            // </div>
             <div id="apartamentsList" className="mt-10 mx-auto">
                <div className="loader mx-auto mt-40"></div>
                <h1 className="text-[#F36202] text-center h-screen">Загрузка{dots}</h1>
@@ -101,163 +109,7 @@ const Profile: React.FC = () => {
                <h1 className="text-[#F36202] text-center h-screen">Сохранение{dots}</h1>
             </div>
     }
-
-//   if (!user) return <div className='w-full, h-screen'>Loading...</div>;
-
   return (
-    // <div style={{
-    //     width: "100%",
-    //     maxWidth: "90%",
-    //     margin: "auto",
-    //     backgroundColor: "#FDFDFD",
-    //     color: "#333",
-    //     borderRadius: "0.5rem",
-    //     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    //     padding: "0",
-    //     marginTop: "1.5rem",
-    //     boxSizing: "border-box"
-    //   }}>
-    //     <div style={{
-    //       backgroundColor: "#F18F65",
-    //       color: "white",
-    //       padding: "1rem 1.5rem",
-    //       borderTopLeftRadius: "0.5rem",
-    //       borderTopRightRadius: "0.5rem"
-    //     }}>
-    //       <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Edit Profile</h2>
-    //     </div>
-    //     <div style={{
-    //       padding: "1.5rem",
-    //       display: "grid",
-    //       gap: "1rem"
-    //     }}>
-    //       <div style={{ display: "grid", gap: "1rem", gridTemplateColumns: "1fr" }}>
-    //         <div style={{ display: "grid", gap: "0.5rem" }}>
-    //           <label htmlFor="name" style={{ fontWeight: "500" }}>Name*</label>
-    //           <input id="name" placeholder="Enter your name" required style={{
-    //             padding: "0.5rem",
-    //             borderRadius: "0.25rem",
-    //             border: "1px solid #ccc",
-    //             width: "100%"
-    //           }} />
-    //         </div>
-    //         <div style={{ display: "grid", gap: "0.5rem" }}>
-    //           <label htmlFor="surname" style={{ fontWeight: "500" }}>Surname*</label>
-    //           <input id="surname" placeholder="Enter your surname" required style={{
-    //             padding: "0.5rem",
-    //             borderRadius: "0.25rem",
-    //             border: "1px solid #ccc",
-    //             width: "100%"
-    //           }} />
-    //         </div>
-    //       </div>
-    //       <div style={{ display: "grid", gap: "0.5rem" }}>
-    //         <label htmlFor="email" style={{ fontWeight: "500" }}>Email*</label>
-    //         <input id="email" type="email" placeholder="Enter your email" required style={{
-    //           padding: "0.5rem",
-    //           borderRadius: "0.25rem",
-    //           border: "1px solid #ccc",
-    //           width: "100%"
-    //         }} />
-    //       </div>
-    //       <div style={{ display: "grid", gap: "0.5rem" }}>
-    //         <label htmlFor="phone" style={{ fontWeight: "500" }}>Phone Number*</label>
-    //         <input id="phone" type="tel" placeholder="Enter your phone number" required style={{
-    //           padding: "0.5rem",
-    //           borderRadius: "0.25rem",
-    //           border: "1px solid #ccc",
-    //           width: "100%"
-    //         }} />
-    //       </div>
-    //       <div style={{ display: "grid", gap: "0.5rem" }}>
-    //         <label htmlFor="description" style={{ fontWeight: "500" }}>Description*</label>
-    //         <textarea id="description" rows={3} placeholder="Enter a short description" required style={{
-    //           padding: "0.5rem",
-    //           borderRadius: "0.25rem",
-    //           border: "1px solid #ccc",
-    //           width: "100%"
-    //         }} />
-    //       </div>
-    //       <div style={{ display: "grid", gap: "0.5rem" }}>
-    //         <label htmlFor="age" style={{ fontWeight: "500" }}>Age*</label>
-    //         <input id="age" type="number" placeholder="Enter your age" required style={{
-    //           padding: "0.5rem",
-    //           borderRadius: "0.25rem",
-    //           border: "1px solid #ccc",
-    //           width: "100%"
-    //         }} />
-    //       </div>
-    //     </div>
-    //     <div style={{
-    //       backgroundColor: "#F18F65",
-    //       color: "white",
-    //       padding: "1rem 1.5rem",
-    //       borderBottomLeftRadius: "0.5rem",
-    //       borderBottomRightRadius: "0.5rem",
-    //       display: "flex",
-    //       justifyContent: "flex-end"
-    //     }}>
-    //       <button type="submit" style={{
-    //         backgroundColor: "white",
-    //         color: "#FF7024",
-    //         padding: "0.5rem 1rem",
-    //         borderRadius: "0.25rem",
-    //         border: "none",
-    //         cursor: "pointer",
-    //         transition: "color 0.3s, background-color 0.3s"
-    //       }}
-    //       onMouseEnter={(e) => {
-    //         e.currentTarget.style.backgroundColor = "#FF7024";
-    //         e.currentTarget.style.color = "white";
-    //       }}
-    //       onMouseLeave={(e) => {
-    //         e.currentTarget.style.backgroundColor = "white";
-    //         e.currentTarget.style.color = "#FF7024";
-    //       }}
-    //       >
-    //         Save Changes
-    //       </button>
-    //     </div>
-    //   </div>
-
-
-    // <div className="container">
-    //         <aside className="aside">
-    //             <h2>Настройки</h2>
-    //             <a href="/profile">Личная информация</a>
-    //             {/* <a href="#">Платная подписка</a> */}
-    //         </aside>
-    //         <main className="main">
-    //             <div className="profile-card">
-    //                 <h2>Личная информация</h2>
-    //                 <div className="profile-picture">
-    //                     <img src="https://nf-spotify-hw.s3.eu-north-1.amazonaws.com/img/PngItem_1468843.png" alt="Bordered avatar" />
-    //                 </div>
-    //                 <div className="form-group">
-    //                     <label htmlFor="email">Ваш email</label>
-    //                     <input type="email" id="email" placeholder="your.email@mail.com" required />
-    //                 </div>
-    //                 <div className="form-group">
-    //                     <label htmlFor="first_name">Ваша Фамилия</label>
-    //                     <input type="text" id="first_name" placeholder="Your first name" defaultValue="Jane" required />
-    //                 </div>
-    //                 <div className="form-group">
-    //                     <label htmlFor="last_name">Ваше Имя</label>
-    //                     <input type="text" id="last_name" placeholder="Your last name" defaultValue="Ferguson" required />
-    //                 </div>
-    //                 <div className="form-group">
-    //                     <label htmlFor="profession">Телефон</label>
-    //                     <input type="text" id="profession" placeholder="Your profession" required />
-    //                 </div>
-    //                 <div className="form-group">
-    //                     <label htmlFor="message">Коротко о вас</label>
-    //                     <textarea id="message" placeholder="Write your bio here..."></textarea>
-    //                 </div>
-    //                 <div className="save-button">
-    //                     <button type="submit">Save</button>
-    //                 </div>
-    //             </div>
-    //         </main>
 
     <div className="container">
     <aside className="aside">
@@ -269,6 +121,10 @@ const Profile: React.FC = () => {
             <h2>Личная информация</h2>
             <div className="profile-picture">
                 <img src="https://nf-spotify-hw.s3.eu-north-1.amazonaws.com/img/PngItem_1468843.png" alt="Bordered avatar" />
+            </div>
+            {/* // тут инфа о токенах */}
+            <div>
+                <h3 style={{ fontSize: '18px', fontWeight: 600 }}>Ваши токены: {user?.tokenBalance}</h3>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -325,6 +181,60 @@ const Profile: React.FC = () => {
                     <button type="submit">Сохранить</button>
                 </div>
             </form>
+            <div className="token-button" style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+                <button onClick={() => setShowModal(true)} style={{
+                    padding: '10px 20px',
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    backgroundColor: '#22c55e',
+                    color: 'white',
+                    border: '1px solid #22c55e',
+                    borderRadius: '10px',
+                    cursor: 'pointer'
+                }}>
+                    Купить токены
+                </button>
+            </div>
+            {showModal && (
+    <div style={{
+        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+        background: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+    }}>
+        <div style={{
+            background: 'white', padding: '30px', borderRadius: '10px',
+            maxWidth: '400px', width: '100%'
+        }}>
+            <h3 style={{ marginBottom: '20px', fontSize: '18px', fontWeight: 600 }}>
+                Введите сумму токенов для покупки
+            </h3>
+            <input
+                type="number"
+                value={tokenAmount}
+                onChange={(e) => setTokenAmount(parseInt(e.target.value))}
+                placeholder="Введите сумму"
+                min="1"
+                style={{
+                    width: '100%', padding: '10px', marginBottom: '20px',
+                    fontSize: '14px', border: '1px solid #cbd5e0', borderRadius: '10px'
+                }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                <button onClick={handleBuyTokens} style={{
+                    padding: '10px 20px', fontSize: '14px', fontWeight: 600,
+                    backgroundColor: '#FF7024', color: 'white', border: '1px solid #FF7024', borderRadius: '10px'
+                }}>
+                    Купить
+                </button>
+                <button onClick={() => setShowModal(false)} style={{
+                    padding: '10px 20px', fontSize: '14px', fontWeight: 600,
+                    backgroundColor: '#e5e7eb', color: '#1f2937', border: '1px solid #d1d5db', borderRadius: '10px'
+                }}>
+                    Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+)}
         </div>
     </main>
             <style jsx>{`

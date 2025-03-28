@@ -66,13 +66,6 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
       }
   };
 
-  const checkUserRequirements = () => {
-    if(user?.phoneNumber && user?.phoneNumber.replace(/\D/g, '').length == 11 && user?.name && user?.surname && user?.smallDescription) {
-      return true
-    }
-    return false; 
-  };
-
   const handleAutocontact = () => {
     const cleanedNumber = apartment?.number.replace(/\D/g, '');
     if (cleanedNumber?.length !== 11) {
@@ -84,7 +77,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
     if (cleanedNumber.length !== 11) {
         setDialogMessage('Арендодатель скрыл номер');
         setIsDialogOpen(true);
-    } else if (checkUserRequirements()) {
+    } else {
         // Конвертация в международный формат: предположим, что номер начинается с '8' и это казахстанский номер
         let internationalNumber = cleanedNumber;
         if (cleanedNumber.startsWith('8')) {
@@ -95,9 +88,6 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
         window.open(whatsappLink, '_blank');  // Открытие WhatsApp в новой вкладке
 
         console.log('Redirected to WhatsApp:', whatsappLink);
-    } else {
-        setDialogMessage('ОШИБКА АВТОКОНТАКТА!<br>Для использования функции автоконтакта необходимо:<br>- Войти в систему<br>- Заполнить все обязательные поля профиля, включая ваш номер телефона на котором у вас зарегистрирован WhatsApp<br><br>Личные данные из профиля нужны для автоконтакта с арендодателем, чтобы он смог связаться с вами позже<br><br>Пожалуйста, выполните эти действия и повторите попытку.');
-        setIsDialogOpen(true);
     }
 };
 

@@ -18,6 +18,7 @@ import HintComponent from "./hint-component";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ApartmentCarousel from "./apartmentCarousel-component";
+import axiosInstance from "./utils/axiosInstance";
 
 interface Apartment {
   id: number;
@@ -60,6 +61,10 @@ useEffect(() => {
     console.log(minPrice, maxPrice);
     setIsLoading(true);
     try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) throw new Error('No token found');
+        const response1 = await axiosInstance.post('userId-by-token', { token });
+        const userId = response1.data.id;
       const response = await fetch("http://localhost:3838/api/v1/apartments/lc/reccomendation", {
         method: "POST",
         headers: {
@@ -71,6 +76,7 @@ useEffect(() => {
           minPrice: minPrice,
           maxPrice: maxPrice,
           rooms: rooms,
+          userId
         }),
       });
 
@@ -97,10 +103,13 @@ useEffect(() => {
         );
 
         setApartments(detailedApartments.filter(apartment => apartment !== null));
+        await fetchMightLikeApartments(searchInput);
       } else {
+        if (response.status === 405) {
+          alert("Недостаточно токенов. Вы можете приобрести их в личном кабинете.");
+        }
         console.error("Failed to fetch apartment recommendations");
       }
-      await fetchMightLikeApartments(searchInput);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
