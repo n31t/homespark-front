@@ -28,7 +28,7 @@
 
 //           // Rest of the code remains the same
 //           const sessionToken = session.createdSessionId;
-//           const response = await fetch('http://localhost:3838/api/v1/google-login', {
+//           const response = await fetch('http://138.197.114.153:3838/api/v1/google-login', {
 //             method: 'POST',
 //             headers: {
 //               'Content-Type': 'application/json',

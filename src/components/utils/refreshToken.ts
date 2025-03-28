@@ -5,7 +5,7 @@ export async function refreshToken() {
   if (!refreshToken) return null;
 
   try {
-    const response = await axios.post('http://localhost:3838/api/v1/auth/refresh-token', { token: refreshToken });
+    const response = await axios.post('http://138.197.114.153:3838/api/v1/auth/refresh-token', { token: refreshToken });
     const { accessToken, refreshToken: newRefreshToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', newRefreshToken);

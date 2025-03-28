@@ -65,7 +65,7 @@ useEffect(() => {
         if (!token) throw new Error('No token found');
         const response1 = await axiosInstance.post('userId-by-token', { token });
         const userId = response1.data.id;
-      const response = await fetch("http://localhost:3838/api/v1/apartments/lc/reccomendation", {
+      const response = await fetch("http://138.197.114.153:3838/api/v1/apartments/lc/reccomendation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ useEffect(() => {
         const recommendations = await response.json();
         const detailedApartments = await Promise.all(
           recommendations.map(async ({ link, reason } : {link: string, reason : string}) => {
-            const detailResponse = await fetch("http://localhost:3838/api/v1/apartments/find/link", {
+            const detailResponse = await fetch("http://138.197.114.153:3838/api/v1/apartments/find/link", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -123,7 +123,7 @@ useEffect(() => {
 
   const fetchMightLikeApartments = async (prompt: string) => {
     try {
-      const response = await fetch("http://localhost:3838/api/v1/apartments/lc/mightlike", {
+      const response = await fetch("http://138.197.114.153:3838/api/v1/apartments/lc/mightlike", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -141,7 +141,7 @@ useEffect(() => {
         const recommendations = await response.json();
         const detailedApartments = await Promise.all(
           recommendations.map(async ({ link }: { link: string }) => {
-            const detailResponse = await fetch("http://localhost:3838/api/v1/apartments/find/link", {
+            const detailResponse = await fetch("http://138.197.114.153:3838/api/v1/apartments/find/link", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

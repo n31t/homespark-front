@@ -96,7 +96,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
       const geocode = async () => {
         try {
           // const query = encodeURIComponent(apartment.location.replace(';', '').trim());
-          const response = await fetch('http://localhost:3838/api/v1/maps/geocode', {
+          const response = await fetch('http://138.197.114.153:3838/api/v1/maps/geocode', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
   useEffect(() => {
     const fetchApartmentDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3838/api/v1/apartments/${id}`);
+        const response = await fetch(`http://138.197.114.153:3838/api/v1/apartments/${id}`);
         if (response.ok) {
           const data = await response.json();
           setApartment(data);
@@ -351,7 +351,7 @@ export default ApartmentDetails;
 //   // useEffect(() => {
 //   //   const fetchApartmentDetails = async () => {
 //   //     try {
-//   //       const response = await fetch(`http://localhost:3838/api/v1/apartments/${id}`);
+//   //       const response = await fetch(`http://138.197.114.153:3838/api/v1/apartments/${id}`);
 //   //       if (response.ok) {
 //   //         const data = await response.json();
 //   //         setApartment(data);
@@ -639,7 +639,7 @@ export default ApartmentDetails;
 //       const geocode = async () => {
 //         try {
 //           // const query = encodeURIComponent(apartment.location.replace(';', '').trim());
-//           const response = await fetch('http://localhost:3838/api/v1/maps/geocode', {
+//           const response = await fetch('http://138.197.114.153:3838/api/v1/maps/geocode', {
 //             method: 'POST',
 //             headers: {
 //               'Content-Type': 'application/json',

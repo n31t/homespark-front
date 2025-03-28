@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (accessToken && refreshToken) {
       try {
-        const response = await fetch('http://localhost:3838/api/v1/check-tokens', {
+        const response = await fetch('http://138.197.114.153:3838/api/v1/check-tokens', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
