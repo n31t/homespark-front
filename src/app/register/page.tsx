@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axiosInstance from '@/components/utils/axiosInstance';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 export default function Page() {
   const [email, setEmail] = useState('');
@@ -11,19 +12,19 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string|null>(null);
   const router = useRouter();
-
+  const { t } = useTranslation();
   const handleRegister = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     if(!email || !passwordFirst || !password) {
-        setError('Заполните все поля.');
+        setError(t('register.11'));
         setLoading(false);
         return;
     }
     if (passwordFirst !== password) {
-        setError('Пароли должны совпадать.');
+        setError(t('register.12'));
         setLoading(false);
         return;
       }
@@ -35,7 +36,7 @@ export default function Page() {
       localStorage.setItem('refreshToken', response.data.refreshToken);
       router.push('/');
     } catch (err) {
-      setError('Ошибка регистрации. Попробуйте снова.');
+      setError(t('register.13'));
     } finally {
       setLoading(false);
     }
@@ -45,8 +46,8 @@ export default function Page() {
     <main className="min-h-screen flex flex-col items-center justify-start px-4 py-10 md:py-20">
       <div style={{width: '100%', maxWidth: '500px', margin: '1.25rem auto', backgroundColor: '#ffffff', borderRadius: '0.5rem', padding: '3rem', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
         <form onSubmit={handleRegister} style={{display: 'flex', flexDirection: 'column', width: '100%', textAlign: 'center'}}>
-          <h3 style={{marginBottom: '0.75rem', fontSize: '2.25rem', fontWeight: '800', color: '#1F2937'}}>Регистрация</h3>
-          <p style={{marginBottom: '1rem', color: '#4B5563'}}>Создайте свой аккаунт</p>
+          <h3 style={{marginBottom: '0.75rem', fontSize: '2.25rem', fontWeight: '800', color: '#1F2937'}}>{t('register.1')}</h3>
+          <p style={{marginBottom: '1rem', color: '#4B5563'}}>{t('register.2')}</p>
           
           {error && <p style={{color: '#EF4444', marginBottom: '1rem'}}>{error}</p>}
           
@@ -60,23 +61,23 @@ export default function Page() {
             style={{display: 'flex', alignItems: 'center', width: '100%', padding: '1rem 1.25rem', marginBottom: '1.75rem', fontSize: '0.875rem', fontWeight: '500', backgroundColor: '#E5E7EB', color: '#1F2937', borderRadius: '1rem', outline: 'none'}} 
           />
           
-          <label htmlFor="passwordFirst" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>Придумайте пароль*</label>
+          <label htmlFor="passwordFirst" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>{t('register.3')}</label>
           <input 
             id="passwordFirst" 
             type="password" 
             value={passwordFirst}
             onChange={(e) => setPasswordFirst(e.target.value)}
-            placeholder="Введите пароль" 
+            placeholder={t('register.4')} 
             style={{display: 'flex', alignItems: 'center', width: '100%', padding: '1rem 1.25rem', marginBottom: '1.25rem', fontSize: '0.875rem', fontWeight: '500', backgroundColor: '#E5E7EB', color: '#1F2937', borderRadius: '1rem', outline: 'none'}} 
           />
           
-          <label htmlFor="password" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>Подтвердите пароль*</label>
+          <label htmlFor="password" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>{t('register.5')}</label>
           <input 
             id="password" 
             type="password" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Введите пароль еще раз" 
+            placeholder={t('register.6')} 
             style={{display: 'flex', alignItems: 'center', width: '100%', padding: '1rem 1.25rem', marginBottom: '1.25rem', fontSize: '0.875rem', fontWeight: '500', backgroundColor: '#E5E7EB', color: '#1F2937', borderRadius: '1rem', outline: 'none'}} 
           />
           
@@ -96,10 +97,10 @@ export default function Page() {
               cursor: loading ? 'not-allowed' : 'pointer'
             }}
           >
-            {loading ? 'Регистрация...' : 'Зарегестрироваться'}
+            {loading ? t('register.7') : t('register.8')}
           </button>
           
-          <p style={{fontSize: '0.875rem', lineHeight: '1.5', color: '#111827'}}>Уже есть аккаунт? <a href="/login" style={{fontWeight: '700', color: '#F18F65'}}>Войти</a></p>
+          <p style={{fontSize: '0.875rem', lineHeight: '1.5', color: '#111827'}}>{t('register.9')} <a href="/login" style={{fontWeight: '700', color: '#F18F65'}}>{t('register.10')}</a></p>
         </form>
       </div>
     </main>

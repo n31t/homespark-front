@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axiosInstance from '@/components/utils/axiosInstance';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 import { useClerk, SignInButton } from "@clerk/nextjs";
 // import GoogleLoginButton from '@/components/auth/google-btn-component';
@@ -14,7 +15,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-
+  const { t } = useTranslation();
   const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setLoading(true);
@@ -26,18 +27,18 @@ export default function LoginPage() {
       localStorage.setItem('refreshToken', response.data.refreshToken);
       router.push('/'); // Redirect to home page on success
     } catch (err) {
-      setError('Неверный логин или пароль. Попробуйте снова.');
+      setError(t('login.9'));
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <main style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f3f4f6'}}>  
       <div style={{width: '100%', maxWidth: '500px', margin: '1.25rem auto', backgroundColor: '#ffffff', borderRadius: '0.5rem', padding: '3rem', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'}}>
         <form onSubmit={handleLogin} style={{display: 'flex', flexDirection: 'column', width: '100%', textAlign: 'center'}}>
-          <h3 style={{marginBottom: '0.75rem', fontSize: '2.25rem', fontWeight: '800', color: '#1F2937'}}>Вход</h3>
-          <p style={{marginBottom: '1rem', color: '#4B5563'}}>Введите свой email и пароль</p>
+          <h3 style={{marginBottom: '0.75rem', fontSize: '2.25rem', fontWeight: '800', color: '#1F2937'}}>{t('login.1')}</h3>
+          <p style={{marginBottom: '1rem', color: '#4B5563'}}>{t('login.2')}</p>
           
           {error && <p style={{color: '#EF4444', marginBottom: '1rem'}}>{error}</p>}
           
@@ -73,13 +74,13 @@ export default function LoginPage() {
             style={{display: 'flex', alignItems: 'center', width: '100%', padding: '1rem 1.25rem', marginBottom: '1.75rem', fontSize: '0.875rem', fontWeight: '500', backgroundColor: '#E5E7EB', color: '#1F2937', borderRadius: '1rem', outline: 'none'}} 
           />
           
-          <label htmlFor="password" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>Пароль*</label>
+          <label htmlFor="password" style={{marginBottom: '0.5rem', fontSize: '0.875rem', textAlign: 'start', color: '#111827'}}>{t('login.3')}</label>
           <input 
             id="password" 
             type="password" 
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Введите пароль" 
+            placeholder={t('login.4')} 
             style={{display: 'flex', alignItems: 'center', width: '100%', padding: '1rem 1.25rem', marginBottom: '1.25rem', fontSize: '0.875rem', fontWeight: '500', backgroundColor: '#E5E7EB', color: '#1F2937', borderRadius: '1rem', outline: 'none'}} 
           />
           
@@ -99,10 +100,10 @@ export default function LoginPage() {
               cursor: loading ? 'not-allowed' : 'pointer'
             }}
           >
-            {loading ? 'Входим...' : 'Войти'}
+            {loading ? t('login.5') : t('login.6')}
           </button>
           
-          <p style={{fontSize: '0.875rem', lineHeight: '1.5', color: '#111827'}}>Нет аккаунта? <Link href="/register" style={{fontWeight: '700', color: '#F18F65'}}>Создать аккаунт</Link></p>
+          <p style={{fontSize: '0.875rem', lineHeight: '1.5', color: '#111827'}}>{t('login.7')} <Link href="/register" style={{fontWeight: '700', color: '#F18F65'}}>{t('login.8')}</Link></p>
         </form>
       </div>
     </main>

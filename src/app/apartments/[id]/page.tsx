@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/footer';
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { FaWhatsapp } from 'react-icons/fa';
 import axiosInstance from '@/components/utils/axiosInstance';
+import { useTranslation } from 'react-i18next';
 
 interface User {
   id: number;
@@ -41,7 +42,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
-
+  const { t } = useTranslation();
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -69,13 +70,13 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
   const handleAutocontact = () => {
     const cleanedNumber = apartment?.number.replace(/\D/g, '');
     if (cleanedNumber?.length !== 11) {
-        setDialogMessage('Арендодатель скрыл номер');
+        setDialogMessage(t('apartments.1'));
         setIsDialogOpen(true);
         return;
     }
     
     if (cleanedNumber.length !== 11) {
-        setDialogMessage('Арендодатель скрыл номер');
+        setDialogMessage(t('apartments.1'));
         setIsDialogOpen(true);
     } else {
         // Конвертация в международный формат: предположим, что номер начинается с '8' и это казахстанский номер
@@ -228,7 +229,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
                 className="bg-[#FF7024] text-[#FFFFFF] px-4 py-2 rounded-lg flex items-center gap-2 mx-auto w-full justify-center"
               >
                 <ExternalLinkIcon className="w-4 h-4" />
-                Страница с оригиналом
+                {t('apartments.3')}
                 </button>
               </Link>
               <div className="relative">
@@ -239,12 +240,12 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
                 onMouseLeave={() => setShowTooltip(false)}
               >
                 <FaWhatsapp className="mr-2 w-4" />
-                Автоконтакт по WhatsApp
+                {t('apartments.4')}
                 {/* <InfoIcon className="w-4 h-4" /> */}
               </button>
               {showTooltip && (
                 <div className="absolute bottom-full left-0 mb-2 p-2 bg-[#FFFFFF] text-white text-sm rounded shadow-lg">
-                  Автоматически отправляет сообщение владельцу квартиры через WhatsApp
+                  {t('apartments.5')}
                 </div>
               )}
               </div>
@@ -253,7 +254,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
           </div>
         </section>
         <section className="container mx-auto py-12">
-        <h1 className="text-2xl font-bold mb-4 ">Примерное местоположение:</h1>
+        <h1 className="text-2xl font-bold mb-4 ">{t('apartments.6')}</h1>
           {coordinates ? (
             <YMaps>
               <Map
@@ -265,7 +266,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
               </Map>
             </YMaps>
           ) : (
-            <p className="text-center">Координаты для этого адреса не найдены.</p>
+            <p className="text-center">{t('apartments.7')}</p>
           )}
         </section>
       </div>
@@ -273,7 +274,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
       {isDialogOpen && (
         <div className="fixed inset-0 flex items-center justify-center" style={{backgroundColor: 'rgba(222, 221, 221, 0.95)'}}>
           <div className="p-6 rounded-lg" style={{backgroundColor: '#ffffff', maxWidth: '500px'}}>
-            <h2 className="text-xl font-bold mb-4" style={{color: '#333333'}}>Информация</h2>
+            <h2 className="text-xl font-bold mb-4" style={{color: '#333333'}}>{t('apartments.8')}</h2>
             <p dangerouslySetInnerHTML={{ __html: dialogMessage }}></p>
             <button 
               onClick={() => setIsDialogOpen(false)}
@@ -282,7 +283,7 @@ const ApartmentDetails = ({ params: { id } }: { params: { id: number } }) => {
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#CB5200'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#FF7024'}
             >
-              Закрыть
+              {t('apartments.9')}
             </button>
           </div>
         </div>

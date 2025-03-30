@@ -3,25 +3,28 @@
 * @see https://v0.dev/t/t1ADdq1UL3m
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
+"use client"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps } from "react"
+import { useTranslation } from 'react-i18next';
 
 export function SearchBar() {
+  const { t } = useTranslation()
   return (
     <div className="w-full max-w-7xl mx-auto p-4">
       <div className="text-center mb-4">
-        <h1 className="text-3xl font-bold">Найдите первым выгодную недвижимость в Алматы</h1>
+        <h1 className="text-3xl font-bold">{t('search-bar.1')}</h1>
       </div>
       <div className="bg-white shadow-md rounded-xl">
         <Tabs defaultValue="buy">
           <TabsList className="flex space-x-2">
-            <TabsTrigger value="buy">Купить</TabsTrigger>
-            <TabsTrigger value="rent">Снять</TabsTrigger>
-            <TabsTrigger value="daily">Посуточно</TabsTrigger>
+            <TabsTrigger value="buy">{t('search-bar.2')}</TabsTrigger>
+            <TabsTrigger value="rent">{t('search-bar.3')}</TabsTrigger>
+            <TabsTrigger value="daily">{t('search-bar.4')}</TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="p-4">
@@ -31,7 +34,7 @@ export function SearchBar() {
                 <SelectValue placeholder="Квартиру" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="new">Квартиру</SelectItem>
+                <SelectItem value="new">{t('search-bar.5')}</SelectItem>
               </SelectContent>
             </Select>
             <Select>
@@ -39,16 +42,16 @@ export function SearchBar() {
                 <SelectValue placeholder="1-4 комн." />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">1 комн.</SelectItem>
-                <SelectItem value="2">2 комн.</SelectItem>
-                <SelectItem value="3">3 комн.</SelectItem>
-                <SelectItem value="4">4 комн.</SelectItem>
+                <SelectItem value="1">{t('search-bar.6')}</SelectItem>
+                <SelectItem value="2">{t('search-bar.7')}</SelectItem>
+                <SelectItem value="3">{t('search-bar.8')}</SelectItem>
+                <SelectItem value="4">{t('search-bar.9')}</SelectItem>
               </SelectContent>
             </Select>
             <DropdownMenu>
               <DropdownMenuTrigger className="w-full sm:w-auto">
                 <div className="flex items-center justify-between">
-                  <span>Цена</span>
+                  <span>{t('search-bar.10')}</span>
                   <ChevronDownIcon className="h-4 w-4" />
                 </div>
               </DropdownMenuTrigger>
@@ -70,7 +73,7 @@ export function SearchBar() {
             {/* <Button variant="outline" className="w-full sm:w-auto mx-2">
               Показать на карте
             </Button> */}
-            <Button className="px-4 py-2 w-full sm:w-auto mx-2 bg-[#ff851a] hover:bg-[#ce792e]">Найти</Button>
+            <Button className="px-4 py-2 w-full sm:w-auto mx-2 bg-[#ff851a] hover:bg-[#ce792e]">{t('search-bar.11')}</Button>
             </div>
     </div>
   )

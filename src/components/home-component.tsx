@@ -1,10 +1,15 @@
-
+"use client";
+import { useLanguage } from "@/languageContext";
 import Link from "next/link"
+import React from 'react';
 import { Button } from "./ui/button"
 import { JSX, SVGProps } from "react"
 import { InfoComponent } from "./info-component"
+import { useTranslation } from 'react-i18next';
 
 export function HomeComponent() {
+  const { language } = useLanguage();
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FF7024] to-[#FFD9C7] text-[#FFFFFF]">
 
@@ -15,10 +20,10 @@ export function HomeComponent() {
           <div className="absolute inset-0 flex flex-col items-center justify-center z-20 px-4 md:px-6">
             <div className="max-w-2xl space-y-4 text-center">
               <h1 className="text-4xl font-bold tracking-tighter text-white sm:text-5xl md:text-6xl">
-              Найди квартиру своей мечты в 2 клика
+              {t('home-component.1')}
               </h1>
               <p className="text-lg text-white/80 md:text-xl">
-              Наш сайт предлагает уникальный опыт поиска жилья в Алматы благодаря интеграции искусственного интеллекта, который анализирует предложения с нескольких популярных сайтов.
+              {t('home-component.2')}
               </p>
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
                 <Link
@@ -26,14 +31,14 @@ export function HomeComponent() {
                     className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                     prefetch={false}
                   >
-                  Начать сейчас
+                  {t('home-component.3')}
                 </Link>
                 <Link
                   href="#learnmore"
                   className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                   prefetch={false}
                 >
-                  Узнать больше
+                  {t('home-component.4')}
                 </Link>
               </div>
             </div>
@@ -42,23 +47,23 @@ export function HomeComponent() {
         <section className="container mx-auto py-24 px-4 md:px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <MergeIcon className="h-12 w-12" />
-            <h3 className="text-2xl font-bold">Умный поиск</h3>
+            <h3 className="text-2xl font-bold">{t('home-component.5')}</h3>
             <p className="text-[#E8E8E8]">
-            Наш ИИ анализирует множество факторов и предлагает наилучшие варианты, соответствующие вашим запросам.
+            {t('home-component.6')}
             </p>
           </div>
           <div className="space-y-4" id="learnmore">
             <SignalMediumIcon className="h-12 w-12" />
-            <h3 className="text-2xl font-bold">Авто коммуникация</h3>
+            <h3 className="text-2xl font-bold">{t('home-component.7')}</h3>
             <p className="text-[#E8E8E8]">
-            Наш сайт прост в использовании, что делает процесс поиска квартиры быстрым и приятным. Также большая часть процесса автоматизирована. 
+            {t('home-component.8')} 
             </p>
           </div>
           <div className="space-y-4">
             <ShoppingCartIcon className="h-12 w-12" />
-            <h3 className="text-2xl font-bold">Обширная База Данных</h3>
+            <h3 className="text-2xl font-bold">{t('home-component.9')} </h3>
             <p className="text-[#E8E8E8]">
-            Мы собираем информацию с множества популярных сайтов недвижимости ежедневно, обеспечивая вам доступ к самым актуальным предложениям.
+            {t('home-component.10')} 
             </p>
           </div>
         </section>
@@ -73,7 +78,7 @@ export function HomeComponent() {
             className="mx-auto aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
           />
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Доверенные компании, откуда мы берем информацию о квартирах.
+            {t('home-component.11')} 
           </p>
         </div>
         <div className="grid w-full grid-cols-2 items-center justify-center gap-6 md:grid-cols-3 lg:gap-12">
@@ -136,7 +141,7 @@ export function HomeComponent() {
     </section>
         <section className="container mx-auto pb-16 px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="p-4 max-w-xl mx-auto dark:bg-gray-800">
-    <h2 className=" mb-8 text-3xl font-bold lg:text-4xl">Как это работает?
+    <h2 className=" mb-8 text-3xl font-bold lg:text-4xl">{t('home-component.12')} 
     </h2>
 
     <div className="flex">
@@ -154,8 +159,8 @@ export function HomeComponent() {
                     <div className="h-full w-px bg-[#FFFFFF]"></div>
                 </div>
                 <div className="pt-1 pb-8">
-                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Ввод запроса</p>
-                    <p className="text-gray-600 dark:text-slate-400">На главной странице введите свой запрос нужной квартиры и соответствующие фильтры для получения лучшего результата.</p>
+                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{t('home-component.13')} </p>
+                    <p className="text-gray-600 dark:text-slate-400">{t('home-component.14')} </p>
                 </div>
             </div>
 
@@ -175,8 +180,8 @@ export function HomeComponent() {
                     <div className="h-full w-px bg-[#FFFFFF] "></div>
                 </div>
                 <div className="pt-1 pb-8">
-                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Поиск квартиры</p>
-                    <p className="text-gray-600 dark:text-slate-400">После ввода нажмите на кнопку поиска. Вам будет предоставлен определенный ряд квартир и если не нашли нужную, то стоит немного поменять ваш запрос на более точный.</p>
+                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{t('home-component.15')} </p>
+                    <p className="text-gray-600 dark:text-slate-400">{t('home-component.16')} </p>
                 </div>
             </div>
 
@@ -196,8 +201,8 @@ export function HomeComponent() {
                     <div className="h-full w-px bg-[#FFFFFF]"></div>
                 </div>
                 <div className="pt-1 pb-8">
-                    <p className="mb-2 text-xl font-bold text-gray-900 ">Контакт с владельцем</p>
-                    <p className="text-gray-600 dark:text-slate-400">Наш сайт предоставляет автоматизированный способ контактирования с владельцем, но также и присутствует сотовый телефон продавца если же вы хотите сделать это сами.</p>
+                    <p className="mb-2 text-xl font-bold text-gray-900 ">{t('home-component.17')} </p>
+                    <p className="text-gray-600 dark:text-slate-400">{t('home-component.18')} </p>
                 </div>
             </div>
 
@@ -216,8 +221,8 @@ export function HomeComponent() {
                     </div>
                 </div>
                 <div className="pt-1 ">
-                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">Поздравляю!</p>
-                    <p className="text-gray-600 dark:text-slate-400">Вы успешно записались на осмотр квартиры</p>
+                    <p className="mb-2 text-xl font-bold text-gray-900 dark:text-slate-300">{t('home-component.19')} </p>
+                    <p className="text-gray-600 dark:text-slate-400">{t('home-component.20')} </p>
                 </div>
             </div>
 

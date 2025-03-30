@@ -19,6 +19,7 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ApartmentCarousel from "./apartmentCarousel-component";
 import axiosInstance from "./utils/axiosInstance";
+import { useTranslation } from 'react-i18next';
 
 interface Apartment {
   id: number;
@@ -172,6 +173,8 @@ useEffect(() => {
     fetchMightLikeApartments("Квартира свежий ремонт").then(() => setIsLoading(false));
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF] text-[#ffffff]">
       <main>
@@ -187,43 +190,43 @@ useEffect(() => {
       >
           <div className="w-full max-w-7xl mx-auto p-4">
             <div className="text-left mb-4 mt-0 md:mt-20">
-              <h1 className="text-4xl md:text-3xl font-bold drop-shadow-lg">Найдите первым выгодную недвижимость в Алматы</h1>
-              <p className="text-[#d7d7d7]">Делайте запросы более конкретными для лучших результатов</p>
+              <h1 className="text-4xl md:text-3xl font-bold drop-shadow-lg">{t('search-component.1')}</h1>
+              <p className="text-[#d7d7d7]">{t('search-component.2')}</p>
             </div>
             <div className="bg-white">
               <Tabs defaultValue="buy">
                 <TabsList className="flex space-x-2  rounded-t-[16px] rounded-b-[0px]" style={{ backgroundColor: 'rgba(32, 32, 32, 0.7)' }}>
-                  <TabsTrigger value="buy" onClick={() => setType("buy")}>Купить</TabsTrigger>
-                  <TabsTrigger value="rent" onClick={() => setType("rent")}>Снять</TabsTrigger>
-                  <TabsTrigger value="daily" onClick={() => setType("daily")}>Посуточно</TabsTrigger>
+                  <TabsTrigger value="buy" onClick={() => setType("buy")}>{t('search-component.3')}</TabsTrigger>
+                  <TabsTrigger value="rent" onClick={() => setType("rent")}>{t('search-component.4')}</TabsTrigger>
+                  <TabsTrigger value="daily" onClick={() => setType("daily")}>{t('search-component.5')}</TabsTrigger>
                 </TabsList>
               </Tabs>
               <div className="p-4 bg-[#F9F9F9] #8C8C8C py-6  px-4 rounded-b-[16px] text-[#202020]">
                 <div className="flex flex-wrap gap-4">
                   <Select onValueChange={value => setType(value)}>
                     <SelectTrigger className="w-full sm:w-auto border-[0px]">
-                      <SelectValue placeholder="Квартиру" />
+                      <SelectValue placeholder={t('search-component.21')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="rent">Квартиру</SelectItem>
+                      <SelectItem value="rent">{t('search-component.6')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Select onValueChange={value => setRooms(value)}>
                     <SelectTrigger className="w-full sm:w-auto border-[0px]">
-                      <SelectValue placeholder="1-4 комн." />
+                      <SelectValue placeholder={t('search-component.22')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1">1 комн.</SelectItem>
-                      <SelectItem value="2">2 комн.</SelectItem>
-                      <SelectItem value="3">3 комн.</SelectItem>
-                      <SelectItem value="4">4 комн.</SelectItem>
-                      <SelectItem value="1-4 комн.">1-4 комн.</SelectItem>
+                      <SelectItem value="1">{t('search-component.7')}</SelectItem>
+                      <SelectItem value="2">{t('search-component.8')}</SelectItem>
+                      <SelectItem value="3">{t('search-component.9')}</SelectItem>
+                      <SelectItem value="4">{t('search-component.10')}</SelectItem>
+                      <SelectItem value="1-4 комн.">{t('search-component.11')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="w-full sm:w-auto">
                       <div className="flex h-10 w-full items-center justify-between rounded-md border-[0px] border-[#CCCCCC] bg-white px-3 py-2 text-sm ring-offset-[#FFFFFF] placeholder:text-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#7D40E7] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1">
-                        <span>Цена</span>
+                        <span>{t('search-component.23')}</span>
                         <ChevronDownIcon className="h-4 w-4" />
                       </div>
                     </DropdownMenuTrigger>
@@ -231,12 +234,12 @@ useEffect(() => {
                       <div className="grid gap-4 p-4">
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">От:</label>
+                            <label className="block text-sm font-medium text-gray-700">{t('search-component.12')}</label>
                             <div className="relative mt-1 rounded-md shadow-sm">
                               <Input
                                 type="text"
                                 value={displayMinPrice}
-                                placeholder="от"
+                                placeholder={t('search-component.24')}
                                 className="w-full pr-10"
                                 onChange={e => {
                                   const value2 = Number(e.target.value.replace(/\D/g,'')); // remove non-digits
@@ -250,12 +253,12 @@ useEffect(() => {
                             </div>
                           </div>
                           <div>
-                            <label className="block text-sm font-medium text-gray-700">До:</label>
+                            <label className="block text-sm font-medium text-gray-700">{t('search-component.13')}</label>
                             <div className="relative mt-1 rounded-md shadow-sm">
                             <Input
                               type="text"
                               value={displayMaxPrice}
-                              placeholder="до"
+                              placeholder={t('search-component.25')}
                               className="w-full pr-10"
                               onChange={e => {
                                 const value = Number(e.target.value.replace(/\D/g,'')); // remove non-digits
@@ -274,7 +277,7 @@ useEffect(() => {
                   </DropdownMenu>
                   <Input
                     type="text"
-                    placeholder="Улица, квартиры для большой семьи, со стиральной машиной, возле метро"
+                    placeholder={t('search-component.26')}
                     className="w-full flex-1 border-[0px] border-l-[1px] rounded-[0px] "
                     value={searchInput}
                     onChange={e => setSearchInput(e.target.value)}
@@ -286,7 +289,7 @@ useEffect(() => {
               <div className="md:flex w-full md:pt-4">
                 <div className="w-full text-left">
                   <div className="inline-block bg-[#d9534f] bg-opacity-75 text-white px-2 py-2 text-[0px] md:text-sm rounded-r-lg z-10 ribbon font-thin">
-                    Информация о квартирах берется с достоверных источников: &nbsp;&nbsp;
+                  {t('search-component.14')}  &nbsp;&nbsp;
                   </div>
                 </div>
                 {/* <p className="text-[0px] md:w-full md:text-[14px] text-[#ffffff] text-left font-bold">
@@ -294,7 +297,7 @@ useEffect(() => {
                 </p> */}
                 <Link href="#apartamentsList">
             <Button onClick={handleSearch} className="px-8 py-4 w-full sm:w-auto ml-auto md:ml-2 text-[15px] bg-[#FF7024] hover:bg-[#CB5200]">
-            {isLoading ? 'Загрузка...' : 'Найти'}
+            {isLoading ? t('search-component.28') : t('search-component.29')}
             </Button></Link>
             
               </div>
@@ -363,13 +366,13 @@ useEffect(() => {
             </div>
           </div>
           <p className="w-full text-[12px] md:text-[0px] text-[#d7d7d7] text-left">
-          Мы получаем информацию о заявках на продажу и предложениях квартир из доверенных ресурсов. Мы не несем ответственности за точность размещенной информации на этих платформах.
+          {t('search-component.15')}
           </p>
           <div className="w-full md:flex mt-4 gap-8">
-            <HintComponent hintImage="https://www.svgrepo.com/show/533732/party-horn.svg" hintText="Квартира для тусовки с джигами" setInputValue={setSearchInput}/>
-            <HintComponent hintImage="https://www.svgrepo.com/show/532390/users.svg" hintText="Квартира для большой семьи" setInputValue={setSearchInput} />
-            <HintComponent hintImage="https://www.svgrepo.com/show/532081/water.svg" hintText="Квартира в Бостандыкском районе со стиралкой" setInputValue={setSearchInput} />
-            <HintComponent hintImage="https://www.svgrepo.com/show/533033/bags-shopping.svg" hintText="Уютная квартира возле Меги" setInputValue={setSearchInput} />
+            <HintComponent hintImage="https://www.svgrepo.com/show/533732/party-horn.svg" hintText={t('search-component.30')} setInputValue={setSearchInput}/>
+            <HintComponent hintImage="https://www.svgrepo.com/show/532390/users.svg" hintText={t('search-component.31')} setInputValue={setSearchInput} />
+            <HintComponent hintImage="https://www.svgrepo.com/show/532081/water.svg" hintText={t('search-component.32')} setInputValue={setSearchInput} />
+            <HintComponent hintImage="https://www.svgrepo.com/show/533033/bags-shopping.svg" hintText={t('search-component.33')} setInputValue={setSearchInput} />
           </div>
           </div>
 
@@ -380,14 +383,14 @@ useEffect(() => {
         {isLoading ? (
             <div id="apartamentsList" className="mt-10 mx-auto">
                <div className="loader mx-auto mt-40"></div>
-               <h1 className="text-[#F36202] text-center">Загрузка{dots}</h1>
+               <h1 className="text-[#F36202] text-center">{t('search-component.16')}{dots}</h1>
             </div>
           ) : (
         <>
         <section className="container mx-auto pt-12 py-24 px-4 md:px-6 grid grid-cols-1 md:grid-cols-1 gap-8 ">
           <div className="w-full mx-auto  text-[#202020]">
-            <h1 className="text-2xl font-bold mb-6 ">Предложенный ряд квартир:</h1>
-            <p className="text-sm text-[#838383]">Найдено {apartments.length} объявлений</p>
+            <h1 className="text-2xl font-bold mb-6 ">{t('search-component.17')}</h1>
+            <p className="text-sm text-[#838383]">{t('search-component.18')} {apartments.length} {t('search-component.19')}</p>
           </div>
           
           {apartments.map(apartment => (
@@ -420,7 +423,7 @@ useEffect(() => {
                     </Link>
                     <div className="relative group">
                       <h2 className="text-l font-bold text-[#FF7024] mb-4 cursor-pointer">
-                        Оценка от ИИ <ChevronDown className="inline-block ml-0 mb-1" /> {/* Added ChevronRight icon */}
+                      {t('search-component.27')} <ChevronDown className="inline-block ml-0 mb-1" /> {/* Added ChevronRight icon */}
                       </h2>
                       {/* <div className="absolute left-0 top-full mt-2 hidden group-hover:block p-4 bg-[#FFFFFFF] border border-[#FF7024] rounded-lg">
                         <p className="text-[#8D8D8D] text-sm mb-6">{apartment.reason}</p>
@@ -442,7 +445,7 @@ useEffect(() => {
         </section>
         <section className="container mx-auto py-24 px-4 md:px-6">
             <div className="w-full mx-auto  text-[#202020]">
-              <h1 className="text-2xl font-bold mb-6">Может заинтересовать:</h1>
+              <h1 className="text-2xl font-bold mb-6">{t('search-component.20')}</h1>
             </div>
             <ApartmentCarousel apartments={mightLikeApartments} />
         </section>

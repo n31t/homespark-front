@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axiosInstance from './utils/axiosInstance';
+import { useTranslation } from 'react-i18next';
 
 interface User {
   id: number;
@@ -21,7 +22,7 @@ const Profile: React.FC = () => {
     const [isSaving, setIsSaving] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [tokenAmount, setTokenAmount] = useState<number>(0);
-
+    const { t } = useTranslation();
     const [dots, setDots] = useState('');
 
     useEffect(() => {
@@ -99,64 +100,64 @@ const Profile: React.FC = () => {
         return (
             <div id="apartamentsList" className="mt-10 mx-auto">
                <div className="loader mx-auto mt-40"></div>
-               <h1 className="text-[#F36202] text-center h-screen">Загрузка{dots}</h1>
+               <h1 className="text-[#F36202] text-center h-screen">{t('profile-component.1')}{dots}</h1>
             </div>
           );
     }
     if (isSaving) {
         <div id="apartamentsList" className="mt-10 mx-auto">
                <div className="loader mx-auto mt-40"></div>
-               <h1 className="text-[#F36202] text-center h-screen">Сохранение{dots}</h1>
+               <h1 className="text-[#F36202] text-center h-screen">{t('profile-component.2')}{dots}</h1>
             </div>
     }
   return (
 
     <div className="container">
     <aside className="aside">
-        <h2>Настройки</h2>
-        <a href="/profile">Личная информация</a>
+        <h2>{t('profile-component.3')}</h2>
+        <a href="/profile">{t('profile-component.4')}</a>
     </aside>
     <main className="main">
         <div className="profile-card">
-            <h2>Личная информация</h2>
+            <h2>{t('profile-component.4')}</h2>
             <div className="profile-picture">
                 <img src="https://nf-spotify-hw.s3.eu-north-1.amazonaws.com/img/PngItem_1468843.png" alt="Bordered avatar" />
             </div>
             {/* // тут инфа о токенах */}
             <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 600 }}>Ваши токены: {user?.tokenBalance}</h3>
+                <h3 style={{ fontSize: '18px', fontWeight: 600 }}>{t('profile-component.5')} {user?.tokenBalance}</h3>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email">Ваш email</label>
+                    <label htmlFor="email">{t('profile-component.6')}</label>
                     <div className="email-display">{user?.email}</div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="surname">Ваша Фамилия</label>
+                    <label htmlFor="surname">{t('profile-component.7')}</label>
                     <input 
                         type="text" 
                         id="surname" 
                         name="surname"
                         value={user?.surname || ''}
                         onChange={handleInputChange}
-                        placeholder="Введите вашу реальную Фамилию" 
+                        placeholder={t('profile-component.8')} 
                         required 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="name">Ваше Имя</label>
+                    <label htmlFor="name">{t('profile-component.9')}</label>
                     <input 
                         type="text" 
                         id="name" 
                         name="name"
                         value={user?.name || ''}
                         onChange={handleInputChange}
-                        placeholder="Введите ваше реальное Имя" 
+                        placeholder={t('profile-component.10')} 
                         required 
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phoneNumber">Телефон</label>
+                    <label htmlFor="phoneNumber">{t('profile-component.11')}</label>
                     <input 
                         type="text" 
                         id="phoneNumber" 
@@ -168,17 +169,17 @@ const Profile: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="smallDescription">Коротко о вас</label>
+                    <label htmlFor="smallDescription">{t('profile-component.12')}</label>
                     <textarea 
                         id="smallDescription" 
                         name="smallDescription"
                         value={user?.smallDescription || ''}
                         onChange={handleInputChange}
-                        placeholder="Напишите нужную информацию о себе для арендодателей"
+                        placeholder={t('profile-component.13')}
                     ></textarea>
                 </div>
                 <div className="save-button">
-                    <button type="submit">Сохранить</button>
+                    <button type="submit">{t('profile-component.14')}</button>
                 </div>
             </form>
             <div className="token-button" style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
@@ -192,7 +193,7 @@ const Profile: React.FC = () => {
                     borderRadius: '10px',
                     cursor: 'pointer'
                 }}>
-                    Купить токены
+                    {t('profile-component.15')}
                 </button>
             </div>
             {showModal && (
@@ -205,13 +206,13 @@ const Profile: React.FC = () => {
             maxWidth: '400px', width: '100%'
         }}>
             <h3 style={{ marginBottom: '20px', fontSize: '18px', fontWeight: 600 }}>
-                Введите сумму токенов для покупки
+            {t('profile-component.16')}
             </h3>
             <input
                 type="number"
                 value={tokenAmount}
                 onChange={(e) => setTokenAmount(parseInt(e.target.value))}
-                placeholder="Введите сумму"
+                placeholder={t('profile-component.17')}
                 min="1"
                 style={{
                     width: '100%', padding: '10px', marginBottom: '20px',
@@ -223,13 +224,13 @@ const Profile: React.FC = () => {
                     padding: '10px 20px', fontSize: '14px', fontWeight: 600,
                     backgroundColor: '#FF7024', color: 'white', border: '1px solid #FF7024', borderRadius: '10px'
                 }}>
-                    Купить
+                    {t('profile-component.18')}
                 </button>
                 <button onClick={() => setShowModal(false)} style={{
                     padding: '10px 20px', fontSize: '14px', fontWeight: 600,
                     backgroundColor: '#e5e7eb', color: '#1f2937', border: '1px solid #d1d5db', borderRadius: '10px'
                 }}>
-                    Отмена
+                    {t('profile-component.19')}
                 </button>
             </div>
         </div>
