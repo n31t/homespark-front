@@ -3,15 +3,19 @@ import { initReactI18next } from 'react-i18next';
 // import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './locales/en.json';
 import translationRU from './locales/ru.json';
+import translationKZ from './locales/kz.json';
 
 // Ресурсы переводов
 const resources = {
-  En: {
-    translation: translationEN
-  },
-  Ru: {
-    translation: translationRU
-  }
+    En: {
+        translation: translationEN
+    },
+    Ru: {
+        translation: translationRU
+    },
+    Kz: {
+        translation: translationKZ
+    }
 };
 
 // Инициализация i18next
@@ -20,7 +24,7 @@ i18next
   .use(initReactI18next) // Интеграция с React
   .init({
     resources,
-    fallbackLng: 'Ru', // Язык по умолчанию, если перевод отсутствует
+    fallbackLng: localStorage.getItem('lang') || 'Ru', // Язык по умолчанию
     interpolation: {
       escapeValue: false // React уже защищает от XSS
     }

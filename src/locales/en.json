@@ -27,7 +27,9 @@
         "17": "Contact with the owner",
         "18": "Our website provides an automated way to contact the owner, but the seller's mobile phone is also available if you want to do it yourself.",
         "19": "Congratulations!",
-        "20": "You have successfully signed up for an apartment viewing"       
+        "20": "You have successfully signed up for an apartment viewing",
+        "21": "Log in to your account to start searching for apartments.",
+        "22": "Not enough tokens. You can purchase them in your personal account."
     },
     "search-bar":{
         "1":"Be the first to find a profitable property in Almaty",

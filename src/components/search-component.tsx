@@ -50,6 +50,7 @@ export function SearchComponent() {
   const [isLoading, setIsLoading] = useState(false); // State for loading indicator
   
   const [dots, setDots] = useState('');
+  const { t } = useTranslation();
 
 useEffect(() => {
   const interval = setInterval(() => {
@@ -63,10 +64,13 @@ useEffect(() => {
     setIsLoading(true);
     try {
         const token = localStorage.getItem('accessToken');
-        if (!token) throw new Error('No token found');
+        if (!token) {
+            alert(t('home-component.21'));
+            throw new Error('No token found');
+        }
         const response1 = await axiosInstance.post('userId-by-token', { token });
         const userId = response1.data.id;
-      const response = await fetch("http://138.197.114.153:3838/api/v1/apartments/lc/reccomendation", {
+        const response = await fetch("http://138.197.114.153:3838/api/v1/apartments/lc/reccomendation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -172,8 +176,6 @@ useEffect(() => {
     setIsLoading(true);
     fetchMightLikeApartments("Квартира свежий ремонт").then(() => setIsLoading(false));
   }, []);
-
-  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FFFFFF] to-[#FFFFFF] text-[#ffffff]">
