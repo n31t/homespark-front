@@ -24,7 +24,7 @@ i18next
   .use(initReactI18next) // Интеграция с React
   .init({
     resources,
-    fallbackLng: localStorage.getItem('lang') || 'Ru', // Язык по умолчанию
+    fallbackLng: 'Ru', // Язык по умолчанию
     interpolation: {
       escapeValue: false // React уже защищает от XSS
     }
